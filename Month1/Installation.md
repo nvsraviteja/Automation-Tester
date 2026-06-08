@@ -1,4 +1,4 @@
-# AI/ML QA Roadmap - Day 1
+# AI/ML QA Roadmap 
 
 
 - Install Python
@@ -72,7 +72,7 @@ python day1.py
 Expected:
 
 ```text
-Hello Ravi
+Hello World
 ```
 
 ---
@@ -111,31 +111,6 @@ Run it and modify:
 - current year
 
 Run again and observe the output.
-
----
-
-## Step 7 (Bonus Challenge)
-
-Try writing this yourself without copying:
-
-```python
-bike = "Ronin"
-trip = "Ladakh"
-
-print("I want to ride", bike, "to", trip)
-```
-
----
-
-## Deliverables
-
-Complete the following:
-
-- [ ] Python installed
-- [ ] VS Code installed
-- [ ] First Python program executed
-- [ ] Variables exercise completed
-- [ ] Bonus challenge completed
 
 ---
 
