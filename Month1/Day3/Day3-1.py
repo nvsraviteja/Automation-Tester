@@ -9,7 +9,7 @@ print (f"Passed testcases:{Pass}")
 print (f"Open testcases:{Open}")
 
 EP = Executed/Total*100
-PP = Pass/Total*100
+PP = Pass/Executed*100
 
 print(f"Execution persentage:{EP}")
 print(f"Pass percentage:{PP}")
