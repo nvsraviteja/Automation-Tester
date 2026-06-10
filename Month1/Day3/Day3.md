@@ -94,3 +94,8 @@ if 5 > 3:
 A code block is a group of statements that belong together and are executed as a unit.
 
 In Python, code blocks are defined using indentation (spaces or tabs), not curly braces `{}` like in some other programming languages.
+
+
+## Task for the Day
+Take input of total number of testcases, Passed cases, Executed cases. 
+Calculate the Percentage of Passed cases and Executed cases and print the percentage.
