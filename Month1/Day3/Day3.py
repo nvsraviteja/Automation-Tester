@@ -7,4 +7,6 @@ print(type(abs))
 print(type(what))   
 
 
-name = int("hey"
+name = int(123)
+name = str(name)
+print (name,+ 121)
