@@ -55,3 +55,25 @@ Many systems need to check whether a number divides evenly. The modulus operator
 10 % 2 = 0   # divides evenly
 10 % 3 = 1   # does not divide evenly
 ```
+## Comparison Operators
+
+Comparison operators are used to compare two values, variables, or expressions.
+
+> **Note:** An expression is a combination of values, variables, operators, and functions that Python evaluates to produce a single result.
+
+### What Does a Comparison Operator Do?
+
+It compares two values and returns either `True` or `False`.
+
+### Types of Comparison Operators
+
+| Operator | Meaning |
+|----------|---------|
+| `==` | Equal to |
+| `!=` | Not equal to |
+| `>` | Greater than |
+| `<` | Less than |
+| `>=` | Greater than or equal to |
+| `<=` | Less than or equal to |
+
+Comparison operators do not change or modify any value or data. They simply evaluate the statement and return a result accordingly.
