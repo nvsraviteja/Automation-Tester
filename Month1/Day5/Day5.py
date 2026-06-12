@@ -19,3 +19,19 @@ if d >= 50:
 e = int(input("enter the status code:"))
 if e == 200:
     print ("ok")
+
+###
+# bonus challenge 
+
+Health = int(input("enter the health:"))
+Ammo = int(input("enter the ammo:"))
+Level = int(input("enter the level:"))
+
+if Health <= 20:
+    print ("low health")
+
+if Ammo == 0:
+    print ("out of ammo")
+
+if Level >= 25:
+    print ("Special Ability Unlocked")
