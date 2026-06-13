@@ -17,6 +17,12 @@ Every automation framework, API test, and AI evaluation script uses operators.
 
 1. Arithmetic Operators
 2. Comparison Operators
+3. Assignment Operators
+4. Logical Operators
+5. Bitwise Operators
+6. Identity Operators
+7. Membership Operators
+
 
 ---
 
@@ -77,3 +83,86 @@ It compares two values and returns either `True` or `False`.
 | `<=` | Less than or equal to |
 
 Comparison operators do not change or modify any value or data. They simply evaluate the statement and return a result accordingly.
+
+
+## Assignment Operators
+
+An assignment operator takes the value on the right and assigns it to the variable on the left.
+
+**Example:**
+```python
+a = 10
+```
+
+Here `a` is the variable on the left, and `10` is the value being stored into it.
+
+> **Note:** The `=` sign is an assignment operator, not a comparison operator. Comparison uses `==`.
+
+---
+
+## Types of Assignment Operators
+
+1. Simple Assignment Operator (`=`)
+2. Compound Assignment Operators
+
+---
+
+## Compound Assignment Operators
+
+Compound assignment operators combine an arithmetic operation with a variable to make the code shorter.
+
+---
+
+### Addition Assignment (`+=`)
+
+Used when a value needs to increase over time.
+
+```python
+score = 10
+score += 3
+
+# Equivalent to:
+score = score + 3
+```
+
+---
+
+### Subtraction Assignment (`-=`)
+
+Used when a value needs to decrease over time.
+
+```python
+health = 100
+health -= 20
+
+# Equivalent to:
+health = health - 20
+```
+
+---
+
+### Multiplication Assignment (`*=`)
+
+Used when a value needs to be multiplied.
+
+```python
+score = 10
+score *= 2
+
+# Equivalent to:
+score = score * 2
+```
+
+---
+
+### Division Assignment (`/=`)
+
+Used when a value needs to be divided.
+
+```python
+money = 100
+money /= 2
+
+# Equivalent to:
+money = money / 2
+```
