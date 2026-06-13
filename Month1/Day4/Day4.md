@@ -166,3 +166,70 @@ money /= 2
 # Equivalent to:
 money = money / 2
 ```
+## Logical Operators
+
+Logical operators are used to combine conditional statements.
+
+There are three logical operators:
+
+- `and`
+- `or`
+- `not`
+
+---
+
+### AND
+
+Used when two conditions both need to be satisfied for the overall condition to be `True`.
+
+**Example:**
+```python
+age >= 18 and ticket_available == 1
+```
+
+Python checks two conditions here:
+- The user's age is greater than or equal to 18
+- A ticket is available
+
+**Truth Table:**
+
+| Condition 1 | Condition 2 | Result  |
+|-------------|-------------|---------|
+| `True`      | `True`      | `True`  |
+| `True`      | `False`     | `False` |
+| `False`     | `True`      | `False` |
+| `False`     | `False`     | `False` |
+
+---
+
+### OR
+
+Used when only one of the two conditions needs to be satisfied for the overall condition to be `True`.
+
+**Truth Table:**
+
+| Condition 1 | Condition 2 | Result  |
+|-------------|-------------|---------|
+| `True`      | `True`      | `True`  |
+| `True`      | `False`     | `True`  |
+| `False`     | `True`      | `True`  |
+| `False`     | `False`     | `False` |
+
+---
+
+### NOT
+
+The `not` operator reverses the result of a condition. If the condition is `True`, it returns `False`, and vice versa.
+
+**Example:**
+```python
+if not condition:
+    print(result)
+```
+
+**Truth Table:**
+
+| Condition | Result  |
+|-----------|---------|
+| `True`    | `False` |
+| `False`   | `True`  |
