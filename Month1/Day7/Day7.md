@@ -1,4 +1,4 @@
-## Elif Statement
+## Elif Statement and Nested if
 
 With `if-else` we can only handle two possible outcomes. If there are more possible outcomes — such as 5 or 6 — then `if-else` alone is not enough.
 
@@ -50,3 +50,20 @@ else:
 ---
 
 > **Golden Rule:** Python executes only the first `True` branch. Not all true branches — only the first one.
+
+
+## Nested If
+
+A nested `if` is an `if` condition placed inside another `if` condition. It is used when a second condition should only be checked after the first condition is `True`.
+
+### Structure
+
+```python
+if condition1:
+    if condition2:
+        print("Both conditions are true")
+    else:
+        print("Condition 2 failed")
+else:
+    print("Condition 1 failed")
+```
