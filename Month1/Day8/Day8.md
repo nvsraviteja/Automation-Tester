@@ -73,3 +73,23 @@ while count <= 3:
 - No initialization → error
 - Wrong condition → incorrect behavior
 - No update → infinite loop
+
+
+## Break
+
+`break` is the first loop control statement.
+
+Normally a loop stops when its condition becomes `False`. But sometimes you need to stop the loop immediately, even if the condition is still `True`. That is what `break` does.
+
+**Example:**
+
+```python
+count = 1
+while count <= 10:
+    if count == 5:
+        break
+    print(count)
+    count += 1
+```
+
+`break` does not wait for the loop condition to become `False`. It exits the loop immediately, regardless of whether the condition is still `True`.
