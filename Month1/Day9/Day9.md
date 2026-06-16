@@ -108,3 +108,10 @@ range(start, stop, step)
   ```python
   range(5, 5)  # start and stop are the same, no iterations run
   ```
+
+
+## For vs While
+
+| Use `for` when | Use `while` when |
+|----------------|------------------|
+| The number of iterations is known or you have a sequence to loop through | The loop should continue until a condition changes |
