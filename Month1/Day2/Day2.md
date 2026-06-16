@@ -108,3 +108,4 @@ print(f"My name is {name} and I am {age} years old.")
 ```
 
 The most commonly used method in Python is f-strings, where variables are placed inside curly braces `{}` and are automatically replaced with their values when the string is displayed.
+
