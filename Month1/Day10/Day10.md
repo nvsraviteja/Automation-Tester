@@ -71,3 +71,66 @@ print(name[4])  # IndexError: string index out of range
 The valid index range for `"ravi"` is `0` to `3`. Index `4` does not exist.
 
 ---
+
+## Length — len()
+
+`len()` returns the total number of characters in a string.
+
+```python
+name = "raviteja"
+print(len(name))  # Output: 8
+```
+
+> **Note:** `len()` counts from `1`, not `0`. So a string with 8 characters has a length of `8` but its last index is `7`.
+
+---
+
+## String Slicing
+
+Slicing is used to extract a portion of a string.
+
+**Syntax:**
+```python
+string[start:end]
+```
+
+**Example:**
+```python
+name = "QA Automation"
+print(name[0:7])  # Output: QA Auto
+```
+
+The same rules from `range()` apply — `start` is included, `end` is excluded.
+
+### Omitting Start or End
+
+```python
+name = "QA tester"
+
+print(name[:2])   # No start — Python defaults to 0. Output: QA
+print(name[3:])   # No end — Python defaults to last index. Output: tester
+print(name[:])    # Both omitted — prints the whole string. Output: QA tester
+```
+
+### Shortcut Rules
+
+| Slice | Meaning |
+|-------|---------|
+| `[:n]` | Start from beginning, end at `n-1` |
+| `[n:]` | Start at `n`, go to the end |
+| `[:]` | Entire string |
+
+### Slice Step
+
+Just like `range()`, slicing has an optional third parameter for step.
+
+```python
+string[start:end:step]
+```
+
+```python
+name = "QAtester"
+print(name[0:8:2])  # Output: Qtse
+```
+
+Starts at `0`, stops before `8`, jumps by `2`.
