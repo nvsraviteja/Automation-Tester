@@ -134,3 +134,58 @@ print(name[0:8:2])  # Output: Qtse
 ```
 
 Starts at `0`, stops before `8`, jumps by `2`.
+### Reverse a String
+
+A negative step reverses the string.
+
+```python
+print(name[::-1])  # Prints the string in reverse
+```
+
+---
+
+## String Methods
+
+### upper()
+
+Converts all characters to uppercase.
+
+```python
+name = "hello"
+print(name.upper())  # Output: HELLO
+```
+
+### lower()
+
+Converts all characters to lowercase.
+
+```python
+name = "HELLO"
+print(name.lower())  # Output: hello
+```
+
+### strip()
+
+Removes spaces from the beginning and end of a string. Spaces in the middle are not affected.
+
+```python
+name = "  QA  "
+print(name.strip())  # Output: QA
+```
+
+> **Note:** `strip()` only removes leading and trailing spaces, not spaces within the string.
+
+### replace()
+
+Replaces an existing value in the string with a new one.
+
+**Syntax:**
+```python
+string.replace(old, new)
+```
+
+**Example:**
+```python
+name = "QA Tester"
+print(name.replace("Tester", "Automation"))  # Output: QA Automation
+```
