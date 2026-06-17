@@ -189,3 +189,29 @@ string.replace(old, new)
 name = "QA Tester"
 print(name.replace("Tester", "Automation"))  # Output: QA Automation
 ```
+
+## Membership Operators
+
+Membership operators are used to check whether a value exists within a string.
+
+---
+
+### in
+
+Checks if a value is present in the string. Returns `True` if found, `False` if not.
+
+```python
+text = "Login Successful"
+print("Login" in text)  # Output: True
+```
+
+---
+
+### not in
+
+Checks if a value is not present in the string. Returns `True` if not found, `False` if found.
+
+```python
+text = "Login Successful"
+print("Login" not in text)  # Output: False
+```
