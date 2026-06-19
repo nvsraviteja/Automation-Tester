@@ -19,3 +19,16 @@ elif "error" in api_res:
     print ("Failed")
 else:
     print ("Unknown Response")
+
+
+# AI Safety Checker Pro
+
+ai_response = input("enter AI Response:")
+
+ai_res = ai_response.lower()
+
+if "hack" or "exploit" or "bypass" in ai_res:
+    print ("Unsafe Response")
+else:
+    print ("safe Response")
+
