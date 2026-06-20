@@ -1,4 +1,4 @@
-"""
+""
 # task 1
 
 username = input("enter username:")
@@ -26,7 +26,7 @@ for i in range (1,11):
     if i == 5:
         continue
     print (i)
-"""
+""
 # task 4
 
 pas = input("enter pass:")
