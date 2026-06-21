@@ -1,4 +1,4 @@
-# Day 13 - List Slicing
+# Day 13.1 - List Slicing
 
 ## What is List Slicing?
 
@@ -107,3 +107,126 @@ Starts at index `4`, stops before index `1`, moves backwards by `1`.
 | Full copy | `list[:]` | Returns entire list |
 | Step slicing | `list[start:end:step]` | Picks every nth item |
 | Reverse slicing | `list[::-1]` | Returns list in reverse order |
+
+# Day 13.2 - Test Suite Modification Operations
+
+## 1. insert()
+
+`insert()` is used to add an item at a specific position in the list, unlike `append()` which always adds to the end.
+
+**Syntax:**
+```python
+list.insert(index, value)
+```
+
+**Example:**
+
+```python
+tests = ["Ad-hoc", "Regression", "Performance"]
+
+tests.insert(1, "Smoke")
+
+# Result:
+# ["Ad-hoc", "Smoke", "Regression", "Performance"]
+```
+
+The existing items shift to the right to make room for the new item.
+
+---
+
+## 2. pop()
+
+`pop()` is used to remove an item from the list by its index. It also returns the removed item, so you can store or use it.
+
+**Syntax:**
+```python
+list.pop(index)
+```
+
+**Example:**
+
+```python
+tests = ["Ad-hoc", "Regression", "Performance", "Smoke"]
+
+removed = tests.pop(2)
+
+print(removed)  # Output: Performance
+print(tests)    # Output: ["Ad-hoc", "Regression", "Smoke"]
+```
+
+> If no index is given, `pop()` removes and returns the last item by default.
+
+---
+
+## 3. clear()
+
+`clear()` removes all items from the list, leaving it empty.
+
+**Syntax:**
+```python
+list.clear()
+```
+
+**Example:**
+
+```python
+tests = ["Ad-hoc", "Regression", "Performance", "Smoke"]
+
+tests.clear()
+
+print(tests)  # Output: []
+```
+
+> The list still exists after `clear()`, it is just empty. This is different from deleting the variable entirely.
+
+---
+
+## 4. in
+
+`in` checks whether an item exists in the list. Returns `True` if found, `False` if not.
+
+**Syntax:**
+```python
+value in list
+```
+
+**Example:**
+
+```python
+tests = ["Ad-hoc", "Regression", "Performance"]
+
+print("Regression" in tests)  # Output: True
+print("Smoke" in tests)       # Output: False
+```
+
+---
+
+## 5. not in
+
+`not in` checks whether an item does not exist in the list. Returns `True` if not found, `False` if found.
+
+**Syntax:**
+```python
+value not in list
+```
+
+**Example:**
+
+```python
+tests = ["Ad-hoc", "Regression", "Performance"]
+
+print("Smoke" not in tests)      # Output: True
+print("Regression" not in tests) # Output: False
+```
+
+---
+
+## Summary
+
+| Operation | What it does |
+|-----------|--------------|
+| `insert(index, value)` | Adds an item at a specific position |
+| `pop(index)` | Removes and returns an item by position |
+| `clear()` | Removes all items from the list |
+| `in` | Checks if an item exists in the list |
+| `not in` | Checks if an item does not exist in the list |
