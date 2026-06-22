@@ -75,3 +75,48 @@ hell = highest_score(scr)
 
 print (hell)
 
+# task 6
+def validate_login(respons):
+    if "status" in respons and  "token" in respons and "user" in respons and respons["status"] == 200 and len(respons["token"]) > 5:
+        return True
+    else:
+        return False
+    
+ip = {
+    "status": 200,
+    "token": "abc12345",
+    "user": "Ravi"
+}
+
+
+op = validate_login(ip)
+
+print (op)
+
+
+# final task 
+
+def analyze_suite(results):
+    cp = 0
+    cf = 0
+    cb = 0
+    for i in results:
+        if i == "Pass":
+            cp += 1
+        elif i == "Fail":
+            cf += 1
+        elif i == "Blocked":
+            cb += 1
+
+    dic = {
+           "pass": cp,
+           "fail": cf,
+           "blocked": cb
+    }
+    return dic
+
+val = ["Pass", "Fail", "Pass", "Blocked", "Fail", "Pass"]
+
+new = analyze_suite(val)
+
+print (new)
