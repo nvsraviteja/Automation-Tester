@@ -19,23 +19,7 @@ sum = (f"Test Execution Summary \n Pass: {count_of_pass} \n Fail: {count_of_fail
 
 with open("report.txt", "w") as f:
     f.write(sum)
-
-
-"""def log(res):
-    con = 0
-    list = []
-    for i in range(0,len(res)+1) and res:
-        con += 1
-        app = f"TC{con}", i
-        list.append(app)
-    return list
     
-
-sum = log(results)
-
-print (sum)
-
-"""
 with open("execution.log","a") as a:
         a.write(f"\nPrevious Run")
 con = 0
