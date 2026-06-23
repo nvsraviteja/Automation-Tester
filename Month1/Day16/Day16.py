@@ -46,9 +46,9 @@ def validate_login(response):
     tok = "token" in response
 
     if stat and stat_v and tok:
-        print (True)
+        return True
     else:
-        print (False)
+        return False
 
 
 inp = {
