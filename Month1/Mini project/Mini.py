@@ -15,7 +15,7 @@ list = []
 for r in results:
     for key,value in r.items():
         if "Pass" in value:
-            print(key)
+            # # print(key)
             cp += 1
         elif "Fail" in value:
             cf += 1
@@ -23,7 +23,7 @@ for r in results:
         elif "Blocked" in value:
             cb += 1
 
-print (f"Pass: {cp}\nFail:{cf}\nBlocked:{cb}\nFailed IDs:{list}")
+# print (f"Pass: {cp}\nFail:{cf}\nBlocked:{cb}\nFailed IDs:{list}")
 
 # round 2
 
@@ -39,7 +39,7 @@ login_response = {
     "status": 200
 }
 
-print(validate_login(login_response))
+# print(validate_login(login_response))
 
 
 # round 3
@@ -51,7 +51,7 @@ print(validate_login(login_response))
             valid += 1
             return valid
     except:
-        print("keyerror")
+        # print("keyerror")
 
 for response in responses:
     valid = res(response)
@@ -78,5 +78,30 @@ def res(test):
 
 output = res(responses)
 
-print (output)
+# print (output)
 
+# task 4
+
+
+class BasePage():
+    def click(self):
+        print ("Element Clicked")
+
+class LoginPage(BasePage):
+    def __init__(self,username,password):
+       self.username = username
+       self.password = password
+    def login(self):
+        if self.username == "admin" and self.password == "1234":
+            print ("Login Successful")
+        else:
+            print ("Login Failed")
+
+username = input("enter username:")
+password = input("enter password:")
+
+basepage = BasePage()
+basepage.click()
+
+loginpage = LoginPage(username,password)
+loginpage.login()

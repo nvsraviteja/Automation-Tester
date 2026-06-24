@@ -21,7 +21,7 @@ print(qa.name)
 # task 3
 
 class Game:
-    def play(self):
+    def play(fuck):
         print ("Playing Game")
     
 ply = Game()
