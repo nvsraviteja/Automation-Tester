@@ -1,4 +1,4 @@
-
+# round - 1
 results = [
     {"id": "TC101", "status": "Pass"},
     {"id": "TC102", "status": "Fail"},
@@ -25,6 +25,7 @@ for r in results:
 
 print (f"Pass: {cp}\nFail:{cf}\nBlocked:{cb}\nFailed IDs:{list}")
 
+# round 2
 
 
 def validate_login(response):
@@ -41,4 +42,41 @@ login_response = {
 print(validate_login(login_response))
 
 
+# round 3
+
+
+"""def res():
+    try:
+        if 200 == response["status"] and "token" == response:
+            valid += 1
+            return valid
+    except:
+        print("keyerror")
+
+for response in responses:
+    valid = res(response)
+    """
+responses = [
+    {"status": 200, "token": "abc"},
+    {"status": 401},
+    {"status": 200, "token": "xyz"},
+    {"token": "oops"},
+]
+def res(test):
+    valid = 0
+    invalid = 0
+    for response in test:
+        try:
+            if 200 == response["status"] and "token" in response:
+                valid += 1
+            else:
+                invalid += 1
+        except:
+            invalid += 1
+
+    return (f"Valid:{valid}\nInvalid:{invalid}")
+
+output = res(responses)
+
+print (output)
 
