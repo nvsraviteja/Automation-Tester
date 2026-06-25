@@ -37,3 +37,30 @@ class User():
         
 u1 = User("Ravi",25)
 u1.user_data()
+
+# task 5
+
+class Animal():
+    def speak(self):
+        print ("Some Sound")
+
+class Dog(Animal):
+    pass
+
+
+d1 = Dog()
+d1.speak()
+
+# bonus
+
+class Page():
+    def load(self):
+        print ("Page Loaded")
+
+class HomePage(Page):
+    def welcome(self):
+        print ("Welcome user")
+
+h1 = HomePage()
+h1.load()
+h1.welcome()
