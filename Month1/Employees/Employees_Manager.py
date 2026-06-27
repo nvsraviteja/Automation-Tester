@@ -12,25 +12,32 @@ class EmployeesManager(Employee):
         self.list_of_employees.append(existing_employee)
 
     def list_employees(self):
-        for i in self.list_of_employees:
-            print(i,"\n")
+        for employee in self.list_of_employees:
+            print(employee,"\n")
     
     def delete_employees(self):
-        for i in self.list_of_employees:
-            if min_age <= i.age and max_age >= i.age:
-                self.list_of_employees.remove(i)
+        for employee in self.list_of_employees:
+            if min_age <= employee.age and max_age >= employee.age:
+                self.list_of_employees.remove(employee)
     
     def find_employee(self):
-        for i in self.list_of_employees:
-            if find_name == i.name:
-                print(i)
+        for employee in self.list_of_employees:
+            if find_name == employee.name:
+                print(employee)
 
+    def update_salary(self):
+        for employee in self.list_of_employees:
+            if find_name == employee.name:
+                employee.salary = new_salary
 
-
-manager = EmployeesManager()
-nikhil = Employee("Nikhil",26,150000)
-manager.add_existing_employee(nikhil)  
-manager.add_a_new_employee("NVS", 24, 40)
-
-manager.find_employee()
-manager.list_employees()
+# manager = EmployeesManager()
+# nikhil = Employee("Nikhil",26,150000)
+# manager.add_existing_employee(nikhil)  
+# manager.add_a_new_employee("NVS", 24, 40)
+# 
+# find_name = "Nikhil"
+# new_salary = 200000
+# 
+# manager.list_employees()
+# manager.update_salary()
+# manager.list_employees()
