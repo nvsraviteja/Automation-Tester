@@ -25,7 +25,7 @@ class FrontendManager():
         new_salary = int(input("Enter new salary:"))
         manager.update_salary(find_name, new_salary)
     
-    def list_employees():
+    def list_employees(self):
         manager.list_employees()
 
 fem = FrontendManager()
