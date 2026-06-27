@@ -16,11 +16,21 @@ class EmployeesManager(Employee):
             print(i,"\n")
     
     def delete_employees(self):
-        
+        for i in self.list_of_employees:
+            if min_age <= i.age and max_age >= i.age:
+                self.list_of_employees.remove(i)
+    
+    def find_employee(self):
+        for i in self.list_of_employees:
+            if find_name == i.name:
+                print(i)
+
 
 
 manager = EmployeesManager()
 nikhil = Employee("Nikhil",26,150000)
 manager.add_existing_employee(nikhil)  
+manager.add_a_new_employee("NVS", 24, 40)
 
+manager.find_employee()
 manager.list_employees()

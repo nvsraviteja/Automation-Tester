@@ -5,6 +5,6 @@ class Employee():
         self.salary = salary
         
     def __str__(self):
-        return f"Name:{self.name}\n Age:{self.age}\nSalary:{self.salary}"
+        return f"Name:{self.name}\nAge:{self.age}\nSalary:{self.salary}"
 
 
