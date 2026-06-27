@@ -15,29 +15,22 @@ class EmployeesManager(Employee):
         for employee in self.list_of_employees:
             print(employee,"\n")
     
-    def delete_employees(self):
+    def delete_employees(self,min_age,max_age):
         for employee in self.list_of_employees:
             if min_age <= employee.age and max_age >= employee.age:
                 self.list_of_employees.remove(employee)
     
-    def find_employee(self):
+    def find_employee(self,find_name):
         for employee in self.list_of_employees:
             if find_name == employee.name:
                 print(employee)
 
-    def update_salary(self):
+    def update_salary(self,find_name,new_salary):
         for employee in self.list_of_employees:
             if find_name == employee.name:
                 employee.salary = new_salary
 
-# manager = EmployeesManager()
-# nikhil = Employee("Nikhil",26,150000)
-# manager.add_existing_employee(nikhil)  
-# manager.add_a_new_employee("NVS", 24, 40)
-# 
-# find_name = "Nikhil"
-# new_salary = 200000
-# 
-# manager.list_employees()
-# manager.update_salary()
-# manager.list_employees()
+
+# m1 = EmployeesManager()
+# m1.add_a_new_employee("Nikhil",23,443343)
+# m1.update_salary("Nikhil",123)

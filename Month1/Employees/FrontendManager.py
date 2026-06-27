@@ -23,18 +23,20 @@ class FrontendManager():
     def update_employee_salary(self):
         find_name = input("Enter Employee name:")
         new_salary = int(input("Enter new salary:"))
-        manager.update_salary(new_salary,find_name)
+        manager.update_salary(find_name, new_salary)
 
 fem = FrontendManager()
 
-select = int(input("1. Adding new Employee:\n2. Listing existing employees:\n3. Deleting employees based on age range:\n4. Updating employee salaries by name:"))
 
-if select == 1:
-    fem.adding_new_employee()
-elif select == 2:
-    fem.find_employee()
-elif select == 3:
-    fem.delete_employee_by_age()
-elif select == 4:
-    fem.update_employee_salary()
-
+while True:
+    select = int(input("1. Adding new Employee\n2. Listing existing employees\n3. Deleting employees based on age range\n4. Updating employee salaries by name\n5. exit\nenter number:"))
+    if select == 1:
+        fem.adding_new_employee()
+    elif select == 2:
+        fem.find_employee()
+    elif select == 3:
+        fem.delete_employee_by_age()
+    elif select == 4:
+        fem.update_employee_salary()
+    elif select == 5:
+        break
