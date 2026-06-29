@@ -161,3 +161,23 @@ When Python tries to load `module_a`, it starts importing `module_b`, which in t
 
 ---
 
+## 3. Packages
+
+A **package** is a directory that contains multiple related modules, organized together. It allows you to structure large projects into a hierarchy of folders and files instead of dumping everything into one folder.
+
+### Example Structure
+
+```
+my_project/
+│
+├── utilities/
+│   ├── __init__.py
+│   ├── math_utils.py
+│   └── string_utils.py
+│
+└── main.py
+```
+
+Here, `utilities` is a **package** because it's a folder containing an `__init__.py` file plus other modules (`math_utils.py`, `string_utils.py`).
+
+---
