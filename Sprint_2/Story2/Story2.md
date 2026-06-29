@@ -244,3 +244,87 @@ Because `__init__.py` already pulled `add` into the package's top-level namespac
 - The `.` before `math_utils` (i.e., `.math_utils`) means "look in the current package" — this is called a **relative import**.
 
 ---
+
+## 6. QA Framework Import Structure
+
+In a real-world **QA (Quality Assurance) automation framework**, modules and packages are organized so that test code stays clean, reusable, and easy to navigate. A typical structure looks like this:
+
+```
+qa_framework/
+│
+├── config/
+│   ├── __init__.py
+│   └── settings.py
+│
+├── pages/                     # Page Object Model classes
+│   ├── __init__.py
+│   ├── login_page.py
+│   └── dashboard_page.py
+│
+├── utils/                     # Reusable helper functions
+│   ├── __init__.py
+│   ├── driver_factory.py
+│   └── logger.py
+│
+├── tests/                     # Actual test cases
+│   ├── __init__.py
+│   ├── test_login.py
+│   └── test_dashboard.py
+│
+└── main.py / conftest.py
+```
+
+### How Imports Flow in This Structure
+
+**`pages/login_page.py`**
+```python
+from utils.driver_factory import get_driver
+
+class LoginPage:
+    def __init__(self):
+        self.driver = get_driver()
+
+    def login(self, username, password):
+        self.driver.find_element("id", "username").send_keys(username)
+        self.driver.find_element("id", "password").send_keys(password)
+```
+
+**`tests/test_login.py`**
+```python
+from pages.login_page import LoginPage
+
+def test_valid_login():
+    login_page = LoginPage()
+    login_page.login("test_user", "test_pass")
+    assert True  # replace with real assertion
+```
+
+### Why This Structure Matters for QA
+- **`pages/`** isolates UI element locators and actions (Page Object Model) — if the UI changes, you update one file, not every test.
+- **`utils/`** centralizes shared logic like driver setup and logging, avoiding duplicate code across test files.
+- **`tests/`** stays clean and readable since it only calls high-level methods (`login_page.login(...)`) instead of containing raw Selenium/Playwright code.
+- **`config/`** keeps environment-specific settings (URLs, credentials, timeouts) separate from logic.
+- Each folder has its own `__init__.py`, making every directory a proper importable package — this is what allows clean imports like `from pages.login_page import LoginPage` from anywhere in the project.
+
+### Best Practices for QA Import Structure
+1. Avoid wildcard imports (`from pages import *`) — always import explicitly so it's clear which class/function each test depends on.
+2. Avoid circular imports between `pages` and `tests` — pages should never need to import from tests.
+3. Use relative imports carefully within packages (e.g., inside `pages/__init__.py`) and absolute imports in test files for clarity.
+4. Keep a consistent root so tools like `pytest` can discover and resolve imports correctly (often controlled via a `conftest.py` or `pytest.ini`/`pyproject.toml` at the project root).
+
+---
+
+## Summary Table
+
+| Topic | Purpose |
+|---|---|
+| Modules | Reusable `.py` files containing functions/classes/variables |
+| `import module` | Access items via `module.item`; safer namespace |
+| `from module import item` | Access items directly; shorter but riskier namespace |
+| Aliasing (`as`) | Rename modules/items for brevity or to avoid conflicts |
+| Wildcard Import | Imports everything — avoid due to name collisions & poor clarity |
+| Circular Imports | Two modules importing each other — fix via restructuring or local imports |
+| Packages | Folders of related modules, organized hierarchically |
+| Package Imports | Access modules inside packages via dot notation |
+| `__init__.py` | Marks a folder as a package; can simplify/control imports |
+| QA Framework Structure | Organizes `pages`, `utils`, `tests`, `config` into clean, importable packages |
