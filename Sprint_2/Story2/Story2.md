@@ -208,3 +208,39 @@ print(mu.add(5, 3))
 ```
 
 ---
+
+## 5. `__init__.py`
+
+`__init__.py` is a special file placed inside a folder to tell Python: **"treat this folder as a package."**
+
+### Key Roles
+1. **Marks a directory as a package** — without it (in older Python versions), the folder wouldn't be importable as a package. (Python 3.3+ supports "namespace packages" without `__init__.py`, but including it is still considered best practice for clarity and control.)
+2. **Controls what gets exposed** when someone imports the package itself.
+3. **Can run initialization code** for the package.
+
+### Example
+
+**`utilities/__init__.py`**
+```python
+from .math_utils import add, subtract
+from .string_utils import to_upper
+```
+
+Now, instead of writing:
+```python
+from utilities.math_utils import add
+```
+
+Someone can simply write:
+```python
+from utilities import add
+```
+
+Because `__init__.py` already pulled `add` into the package's top-level namespace.
+
+### Key Points
+- It can be **empty** — its mere presence (in older Python conventions) is what matters.
+- It's commonly used to simplify imports for users of your package.
+- The `.` before `math_utils` (i.e., `.math_utils`) means "look in the current package" — this is called a **relative import**.
+
+---
