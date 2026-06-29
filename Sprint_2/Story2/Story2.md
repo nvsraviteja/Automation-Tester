@@ -181,3 +181,30 @@ my_project/
 Here, `utilities` is a **package** because it's a folder containing an `__init__.py` file plus other modules (`math_utils.py`, `string_utils.py`).
 
 ---
+## 4. Package Imports
+
+You can import modules from within a package using dot notation.
+
+```python
+# From main.py
+import utilities.math_utils
+
+result = utilities.math_utils.add(5, 3)
+```
+
+Or import specific items directly:
+
+```python
+from utilities.math_utils import add
+
+result = add(5, 3)
+```
+
+You can also import a module from a package with an alias:
+
+```python
+from utilities import math_utils as mu
+print(mu.add(5, 3))
+```
+
+---
