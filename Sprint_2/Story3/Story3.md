@@ -88,3 +88,46 @@ with open("data.txt", "a") as file:
 | `a` | Append | No (creates it) | No |
 
 ---
+## 3. Reading Files
+
+### `read()`
+Reads the **entire file content** as a single string.
+
+```python
+with open("data.txt", "r") as file:
+    content = file.read()
+    print(content)
+```
+
+### `readlines()`
+Reads the file and returns a **list of strings**, where each string is one line from the file (including the newline character `\n` at the end of each line).
+
+```python
+with open("data.txt", "r") as file:
+    lines = file.readlines()
+    print(lines)
+    # ['First line\n', 'Second line\n', 'Third line']
+```
+
+You can then loop through the lines:
+
+```python
+with open("data.txt", "r") as file:
+    for line in file.readlines():
+        print(line)
+```
+
+### `strip()`
+A **string method** (not file-specific) that removes leading/trailing whitespace — including the `\n` newline character left over from `readlines()`.
+
+```python
+with open("data.txt", "r") as file:
+    for line in file.readlines():
+        clean_line = line.strip()
+        print(clean_line)  # no trailing newline or extra spaces
+```
+
+**Without `strip()`:** `"First line\n"` → printed with an extra blank line after it.
+**With `strip()`:** `"First line"` → clean output.
+
+---
