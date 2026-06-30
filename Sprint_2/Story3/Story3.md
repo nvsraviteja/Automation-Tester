@@ -241,3 +241,39 @@ print(data)
 > **Note:** There's also `json.loads()` (with an "s") which converts a JSON **string** (not a file) into a Python object. `load()` = from file, `loads()` = from string.
 
 ---
+## 8. Accessing JSON Data
+
+Once loaded, JSON data behaves just like a normal Python dictionary/list — you access it the same way.
+
+```python
+import json
+
+with open("user.json", "r") as file:
+    data = json.load(file)
+
+print(data["name"])          # Alice
+print(data["age"])           # 25
+print(data["skills"][0])     # Python
+print(data["skills"][1])     # Selenium
+
+for skill in data["skills"]:
+    print(skill)
+```
+
+If the JSON contains nested objects:
+
+```json
+{
+  "name": "Alice",
+  "address": {
+    "city": "Hyderabad",
+    "zip": "500001"
+  }
+}
+```
+
+```python
+print(data["address"]["city"])  # Hyderabad
+```
+
+---
