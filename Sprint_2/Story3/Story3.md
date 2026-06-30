@@ -131,3 +131,32 @@ with open("data.txt", "r") as file:
 **With `strip()`:** `"First line"` → clean output.
 
 ---
+
+## 4. Writing Files
+
+### `write()`
+Writes a **string** to the file. It does **not** automatically add a newline — you need to include `\n` yourself if you want line breaks.
+
+```python
+with open("output.txt", "w") as file:
+    file.write("Line one\n")
+    file.write("Line two\n")
+    file.write("Line three")
+```
+
+**Resulting file content:**
+```
+Line one
+Line two
+Line three
+```
+
+> **Note:** `write()` only accepts strings. If you want to write a number or other data type, convert it first using `str()`.
+
+```python
+with open("output.txt", "w") as file:
+    score = 95
+    file.write("Score: " + str(score))
+```
+
+---
