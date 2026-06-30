@@ -184,3 +184,60 @@ Using **append mode (`a`)** here is important — each test run adds to the log 
 
 ---
 
+## 6. JSON Basics
+
+**JSON** (JavaScript Object Notation) is a lightweight, text-based data format used to store and exchange structured data. It looks very similar to a Python dictionary.
+
+### Example JSON Data
+
+```json
+{
+  "name": "Alice",
+  "age": 25,
+  "is_active": true,
+  "skills": ["Python", "Selenium", "API Testing"]
+}
+```
+
+### Why JSON Matters in Programming/QA
+- Most **APIs** send and receive data in JSON format — so JSON handling is critical for API testing.
+- Configuration files are often written in JSON.
+- Test data sets can be stored as JSON for easy reading/writing.
+
+Python's built-in `json` module lets you convert between JSON text and Python objects (dictionaries/lists).
+
+```python
+import json
+```
+
+---
+
+## 7. Reading JSON
+
+### `json.load()`
+Reads JSON data **directly from a file** and converts it into a Python object (usually a dictionary or list).
+
+**`user.json`**
+```json
+{
+  "name": "Alice",
+  "age": 25,
+  "skills": ["Python", "Selenium"]
+}
+```
+
+**Reading it:**
+```python
+import json
+
+with open("user.json", "r") as file:
+    data = json.load(file)
+
+print(type(data))  # <class 'dict'>
+print(data)
+# {'name': 'Alice', 'age': 25, 'skills': ['Python', 'Selenium']}
+```
+
+> **Note:** There's also `json.loads()` (with an "s") which converts a JSON **string** (not a file) into a Python object. `load()` = from file, `loads()` = from string.
+
+---
