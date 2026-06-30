@@ -160,3 +160,27 @@ with open("output.txt", "w") as file:
 ```
 
 ---
+## 5. File Handling in QA
+
+File handling is widely used in QA automation for tasks such as:
+
+- **Reading test data** from text/CSV/JSON files instead of hardcoding values in test scripts.
+- **Writing test logs** to track what happened during a test run.
+- **Storing test results/reports** in a structured format for later review.
+- **Reading configuration files** (URLs, credentials, environment settings) used across multiple tests.
+
+### Example: Logging Test Results
+
+```python
+def run_test_and_log(test_name, result):
+    with open("test_log.txt", "a") as log_file:
+        log_file.write(f"{test_name}: {result}\n")
+
+run_test_and_log("test_login", "PASSED")
+run_test_and_log("test_logout", "FAILED")
+```
+
+Using **append mode (`a`)** here is important — each test run adds to the log without erasing previous results.
+
+---
+
