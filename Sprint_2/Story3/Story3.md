@@ -277,3 +277,277 @@ print(data["address"]["city"])  # Hyderabad
 ```
 
 ---
+
+## 9. Writing JSON
+
+### `json.dump()`
+Converts a Python object (dictionary/list) into JSON format and **writes it directly to a file**.
+
+```python
+import json
+
+user_data = {
+    "name": "Bob",
+    "age": 30,
+    "skills": ["Java", "API Testing"]
+}
+
+with open("output_user.json", "w") as file:
+    json.dump(user_data, file)
+```
+
+**Resulting `output_user.json`:**
+```json
+{"name": "Bob", "age": 30, "skills": ["Java", "API Testing"]}
+```
+
+### Making It More Readable: `indent`
+By default, `json.dump()` writes everything on one line. Use the `indent` parameter to make it human-readable:
+
+```python
+with open("output_user.json", "w") as file:
+    json.dump(user_data, file, indent=4)
+```
+
+**Resulting file:**
+```json
+{
+    "name": "Bob",
+    "age": 30,
+    "skills": [
+        "Java",
+        "API Testing"
+    ]
+}
+```
+
+> Just like `load`/`loads`, there's also `json.dumps()` which converts a Python object into a JSON **string** (instead of writing it to a file) — useful when sending JSON data in an API request.
+
+---
+
+## 10. CSV Basics
+
+**CSV** (Comma-Separated Values) is a simple text format for storing tabular data — rows and columns separated by commas. It's commonly used for test data sets, exported reports, and data-driven testing.
+
+### Example CSV File (`users.csv`)
+
+```
+name,age,city
+Alice,25,Hyderabad
+Bob,30,Mumbai
+Carol,28,Delhi
+```
+
+- The **first row** is usually the **header** (column names).
+- Each subsequent row is a **record** (one row of data).
+
+Python's built-in `csv` module handles reading and writing CSV files properly — including edge cases like commas inside quoted text.
+
+```python
+import csv
+```
+
+---
+
+## 11. Reading CSV
+
+### `csv.reader()`
+Reads a CSV file and returns an iterable where each row is a **list of strings**.
+
+```python
+import csv
+
+with open("users.csv", "r") as file:
+    reader = csv.reader(file)
+    for row in reader:
+        print(row)
+
+# ['name', 'age', 'city']
+# ['Alice', '25', 'Hyderabad']
+# ['Bob', '30', 'Mumbai']
+# ['Carol', '28', 'Delhi']
+```
+
+Notice the **header row** is included as a normal row — you often need to handle/skip it separately (see below).
+
+---
+
+## 12. Accessing CSV Data
+
+### Skipping the Header Row
+
+```python
+import csv
+
+with open("users.csv", "r") as file:
+    reader = csv.reader(file)
+    header = next(reader)  # grabs the first row (header) and moves iterator forward
+    print("Header:", header)  # ['name', 'age', 'city']
+
+    for row in reader:
+        print(row)  # remaining rows only, no header
+```
+
+### Accessing Specific Columns by Index
+
+```python
+with open("users.csv", "r") as file:
+    reader = csv.reader(file)
+    next(reader)  # skip header
+
+    for row in reader:
+        name = row[0]
+        age = row[1]
+        city = row[2]
+        print(f"{name} is {age} years old and lives in {city}")
+```
+
+### Using `csv.DictReader` (Bonus — Cleaner Access)
+Instead of accessing columns by index (`row[0]`, `row[1]`), `DictReader` lets you access columns **by name**, which is more readable:
+
+```python
+with open("users.csv", "r") as file:
+    reader = csv.DictReader(file)
+    for row in reader:
+        print(row["name"], row["age"], row["city"])
+```
+
+---
+
+## 13. Writing CSV
+
+### `csv.writer()`
+Creates a writer object that can write rows of data into a CSV file.
+
+### `writer.writerow()`
+Writes a **single row** (as a list) to the CSV file.
+
+```python
+import csv
+
+with open("output.csv", "w", newline="") as file:
+    writer = csv.writer(file)
+    writer.writerow(["name", "age", "city"])       # header row
+    writer.writerow(["David", 22, "Chennai"])
+    writer.writerow(["Emma", 27, "Pune"])
+```
+
+**Resulting `output.csv`:**
+```
+name,age,city
+David,22,Chennai
+Emma,27,Pune
+```
+
+> **Important:** Always use `newline=""` when opening a file for CSV writing on Windows — otherwise, you may get unwanted blank lines between rows due to how line endings are handled.
+
+### Writing Multiple Rows at Once: `writerows()`
+
+```python
+import csv
+
+data = [
+    ["David", 22, "Chennai"],
+    ["Emma", 27, "Pune"]
+]
+
+with open("output.csv", "w", newline="") as file:
+    writer = csv.writer(file)
+    writer.writerow(["name", "age", "city"])  # header
+    writer.writerows(data)                    # all data rows at once
+```
+
+---
+
+## 14. Story 3 QA Framework Usage
+
+In a QA automation framework, file handling, JSON, and CSV are combined to support **data-driven testing** — running the same test logic against multiple sets of input data.
+
+### Typical Structure
+
+```
+qa_framework/
+│
+├── test_data/
+│   ├── users.json
+│   └── login_credentials.csv
+│
+├── pages/
+│   └── login_page.py
+│
+├── utils/
+│   ├── json_reader.py
+│   └── csv_reader.py
+│
+├── tests/
+│   └── test_login_data_driven.py
+│
+└── reports/
+    └── test_log.txt
+```
+
+### Example: `utils/json_reader.py`
+
+```python
+import json
+
+def read_json(file_path):
+    with open(file_path, "r") as file:
+        return json.load(file)
+```
+
+### Example: `utils/csv_reader.py`
+
+```python
+import csv
+
+def read_csv(file_path):
+    with open(file_path, "r") as file:
+        reader = csv.DictReader(file)
+        return [row for row in reader]
+```
+
+### Example: `tests/test_login_data_driven.py`
+
+```python
+from pages.login_page import LoginPage
+from utils.csv_reader import read_csv
+
+def test_login_with_multiple_users():
+    credentials = read_csv("test_data/login_credentials.csv")
+
+    for cred in credentials:
+        login_page = LoginPage()
+        login_page.login(cred["username"], cred["password"])
+        # assert expected result, e.g.:
+        # assert login_page.is_logged_in() == (cred["expected_result"] == "success")
+```
+
+### Example: Logging Test Results to a File
+
+```python
+def log_result(test_name, result):
+    with open("reports/test_log.txt", "a") as log_file:
+        log_file.write(f"{test_name}: {result}\n")
+```
+
+### Why This Matters for QA
+- **JSON** is ideal for structured config and API response/request test data (nested objects, lists).
+- **CSV** is ideal for simple, table-like test data — especially when multiple people (including non-programmers) need to add test cases via Excel/Sheets.
+- **Text file logging (append mode)** keeps a running record of test execution without overwriting previous runs.
+- Separating data (`test_data/`) from logic (`tests/`, `pages/`) makes the framework **data-driven** — you can add new test cases just by adding new rows/objects, without touching the test code.
+
+---
+
+## Summary Table
+
+| Topic | Key Function(s) | Purpose |
+|---|---|---|
+| File Modes | `r`, `w`, `a` | Control read/write/append behavior |
+| Reading Files | `read()`, `readlines()`, `strip()` | Get file content as string/list, clean whitespace |
+| Writing Files | `write()` | Write string content to a file |
+| JSON Reading | `json.load()` | Convert JSON file → Python dict/list |
+| JSON Writing | `json.dump()` | Convert Python dict/list → JSON file |
+| CSV Reading | `csv.reader()`, `csv.DictReader` | Convert CSV file → rows (list or dict) |
+| CSV Writing | `csv.writer()`, `writerow()`, `writerows()` | Write rows of data into a CSV file |
+| QA Usage | Data-driven testing | Separate test data (JSON/CSV) from test logic for scalable automation |
