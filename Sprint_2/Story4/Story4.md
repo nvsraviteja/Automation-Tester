@@ -209,3 +209,92 @@ except ValueError:        # this will NEVER run
 ```
 
 ---
+
+## 6. Catching Generic Exceptions
+
+### `except Exception as e`
+Sometimes you want a **safety net** to catch any unexpected exception that you didn't specifically plan for — without hiding what actually went wrong. The `as e` part lets you access the actual exception object, including its error message.
+
+```python
+try:
+    result = 10 / 0
+except Exception as e:
+    print(f"An error occurred: {e}")
+```
+
+**Output:**
+```
+An error occurred: division by zero
+```
+
+### Combining Specific + Generic Handling
+
+```python
+try:
+    value = int(input("Enter a number: "))
+    result = 10 / value
+except ValueError:
+    print("Please enter a valid number.")
+except ZeroDivisionError:
+    print("You can't divide by zero.")
+except Exception as e:
+    print(f"An unexpected error occurred: {e}")
+```
+
+This pattern handles the errors you **expect** specifically, and still safely catches anything **unexpected** — while telling you what it actually was, instead of silently failing.
+
+> **Note:** `Exception` catches almost all errors but not things like `SystemExit` or `KeyboardInterrupt`, which inherit directly from `BaseException`. This is intentional — you generally don't want to accidentally swallow a user's `Ctrl+C` interrupt.
+
+---
+
+## 7. `finally` Block
+
+The `finally` block contains code that **always runs**, whether or not an exception occurred — and even if the exception was never caught.
+
+```python
+try:
+    result = 10 / 0
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+finally:
+    print("This always runs, no matter what")
+```
+
+**Output:**
+```
+Cannot divide by zero
+This always runs, no matter what
+```
+
+### Even Without an Exception
+
+```python
+try:
+    result = 10 / 2
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+finally:
+    print("This always runs")
+```
+
+**Output:**
+```
+This always runs
+```
+
+### Even If the Exception Isn't Caught
+
+```python
+try:
+    result = 10 / 0
+except ValueError:  # doesn't match ZeroDivisionError
+    print("Value error")
+finally:
+    print("Finally block still runs")
+# Then the program crashes with the uncaught ZeroDivisionError,
+# but "Finally block still runs" prints first.
+```
+
+**Why this matters:** `finally` is the right place for **cleanup code** — things that absolutely must happen regardless of success or failure (closing files, closing browser sessions, releasing resources).
+
+---
