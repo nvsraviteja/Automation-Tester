@@ -298,3 +298,221 @@ finally:
 **Why this matters:** `finally` is the right place for **cleanup code** — things that absolutely must happen regardless of success or failure (closing files, closing browser sessions, releasing resources).
 
 ---
+
+## 8. Cleanup with `finally` in QA
+
+In test automation, certain resources (browsers, files, database connections) **must be closed properly** even if a test fails or throws an error. `finally` guarantees this cleanup happens.
+
+### Browser Cleanup
+
+```python
+from selenium import webdriver
+
+driver = webdriver.Chrome()
+
+try:
+    driver.get("https://example.com")
+    element = driver.find_element("id", "nonexistent-element")  # might raise an error
+    element.click()
+except Exception as e:
+    print(f"Test failed: {e}")
+finally:
+    driver.quit()  # browser ALWAYS closes, pass or fail
+```
+
+Without `finally`, if `find_element` fails, `driver.quit()` might never run — leaving browser processes open and consuming memory/resources across test runs.
+
+### File Cleanup
+
+```python
+file = open("test_log.txt", "a")
+
+try:
+    file.write("Test started\n")
+    result = 10 / 0  # error occurs
+    file.write("Test passed\n")
+except ZeroDivisionError:
+    file.write("Test failed: division by zero\n")
+finally:
+    file.close()  # file ALWAYS closes properly
+```
+
+> **Note:** Using `with open(...)` already handles file closing automatically (as covered in Story 3), so `finally` is more commonly used for things like browser sessions, database connections, or external resources that don't have a built-in context manager.
+
+---
+
+## 9. Raising Exceptions Manually
+
+### `raise`
+The `raise` keyword lets you **manually trigger** an exception — even if Python itself wouldn't normally raise one at that point. This is useful for enforcing rules in your own code.
+
+```python
+def set_age(age):
+    if age < 0:
+        raise ValueError("Age cannot be negative")
+    print(f"Age set to {age}")
+
+set_age(-5)
+```
+
+**Output:**
+```
+ValueError: Age cannot be negative
+```
+
+### Raising and Catching Your Own Exception
+
+```python
+def divide(a, b):
+    if b == 0:
+        raise ZeroDivisionError("Cannot divide by zero in this function")
+    return a / b
+
+try:
+    divide(10, 0)
+except ZeroDivisionError as e:
+    print(f"Caught an error: {e}")
+```
+
+### Re-raising an Exception
+Sometimes you want to handle part of an error (e.g., log it) but still let it propagate up:
+
+```python
+try:
+    result = 10 / 0
+except ZeroDivisionError as e:
+    print(f"Logging error: {e}")
+    raise  # re-raises the same exception after logging it
+```
+
+---
+
+## 10. Validation Using `raise`
+
+A very common, practical use of `raise` is **input/data validation** — making sure data meets certain rules **before** your program proceeds, rather than letting it fail later in a confusing way.
+
+```python
+def create_user(username, age):
+    if not username:
+        raise ValueError("Username cannot be empty")
+    if not isinstance(age, int):
+        raise TypeError("Age must be an integer")
+    if age < 18:
+        raise ValueError("User must be at least 18 years old")
+
+    print(f"User '{username}' created successfully, age {age}")
+
+try:
+    create_user("Alice", 16)
+except (ValueError, TypeError) as e:
+    print(f"Validation failed: {e}")
+```
+
+**Output:**
+```
+Validation failed: User must be at least 18 years old
+```
+
+### Why Validate with `raise` Instead of Just Returning `None` or `False`?
+- **Forces the caller to handle the problem** — they can't accidentally ignore a failed validation the way they might ignore a returned `False`.
+- **Clear, descriptive error messages** make debugging much faster.
+- **Fails fast** — catches bad data immediately, instead of letting it cause confusing errors deep inside your program later.
+
+---
+
+## 11. Exception Handling in QA Framework Usage
+
+Exception handling is essential throughout a QA automation framework — at the **page object** level, the **test** level, and the **framework/utility** level — to keep test suites stable, informative, and resilient to individual failures.
+
+### Example: Page Object Level
+
+```python
+# pages/login_page.py
+class LoginPage:
+    def __init__(self, driver):
+        self.driver = driver
+
+    def login(self, username, password):
+        try:
+            self.driver.find_element("id", "username").send_keys(username)
+            self.driver.find_element("id", "password").send_keys(password)
+            self.driver.find_element("id", "login-btn").click()
+        except Exception as e:
+            raise RuntimeError(f"Login action failed: {e}")
+```
+
+Here, the page object catches low-level Selenium exceptions and **re-raises** a clearer, more meaningful error for whoever calls `login()`.
+
+### Example: Test Level
+
+```python
+# tests/test_login.py
+from pages.login_page import LoginPage
+
+def test_login_with_invalid_credentials(driver):
+    login_page = LoginPage(driver)
+    try:
+        login_page.login("baduser", "wrongpass")
+    except RuntimeError as e:
+        print(f"Expected failure occurred: {e}")
+    finally:
+        driver.quit()  # cleanup always happens
+```
+
+### Example: Utility Level — Reading Test Data Safely
+
+```python
+# utils/data_reader.py
+import json
+
+def load_test_data(file_path):
+    try:
+        with open(file_path, "r") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Test data file not found: {file_path}")
+    except json.JSONDecodeError:
+        raise ValueError(f"Test data file is not valid JSON: {file_path}")
+```
+
+This gives **clear, specific error messages** if test data is missing or malformed — instead of a cryptic crash deep inside the test run.
+
+### Example: Validating Test Data Before Running Tests
+
+```python
+def validate_credentials(cred):
+    if "username" not in cred or "password" not in cred:
+        raise KeyError("Test data missing 'username' or 'password' field")
+    return True
+
+for cred in credentials:
+    try:
+        validate_credentials(cred)
+        login_page.login(cred["username"], cred["password"])
+    except KeyError as e:
+        print(f"Skipping invalid test data: {e}")
+        continue
+```
+
+### Why This Matters for QA
+- **Isolates failures** — one bad test or one piece of bad data doesn't crash the entire suite; other tests still run.
+- **Better reporting** — clear exception messages make it obvious *why* a test failed (bad data vs. broken UI vs. timeout) instead of a generic crash.
+- **Guaranteed cleanup** — `finally` ensures browsers, files, and connections close properly after every test, pass or fail, preventing resource leaks across long test runs.
+- **Fail-fast validation** — `raise` on bad test data catches problems immediately, rather than letting them cause confusing failures several steps later.
+
+---
+
+## Summary Table
+
+| Concept | Purpose |
+|---|---|
+| `try` / `except` | Catch and handle errors instead of crashing |
+| Specific exceptions | Catch only expected error types; keeps debugging clear |
+| Broad `except` | Catches everything — use sparingly, can hide bugs |
+| Common exception types | `ValueError`, `TypeError`, `KeyError`, `IndexError`, `ZeroDivisionError`, `FileNotFoundError`, `NameError`, `ModuleNotFoundError`, `AssertionError`, `TimeoutError` |
+| Multiple `except` blocks | Handle different error types differently, most specific first |
+| `except Exception as e` | Generic safety net; still shows the actual error message |
+| `finally` | Code that always runs — used for guaranteed cleanup |
+| `raise` | Manually trigger an exception (custom rules, validation, re-raising) |
+| Validation with `raise` | Fail fast with clear error messages on bad data/input |
+| QA Framework Usage | Isolate failures, guarantee cleanup, and validate test data for stable automation |
