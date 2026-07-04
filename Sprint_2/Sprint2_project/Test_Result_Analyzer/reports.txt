@@ -1,9 +1,9 @@
 ========== TEST REPORT ==========
-Total Test Cases: 3
+Total Test Cases: 6
 Passed Test Cases: 1
-Failed Test Cases: 1
-Blocked Test Cases: 1
+Failed Test Cases: 3
+Blocked Test Cases: 2
 Failed Test Case
 --------------------
- IDs: TC102
+ IDs: TC102, TC104, TC105
 ==============================

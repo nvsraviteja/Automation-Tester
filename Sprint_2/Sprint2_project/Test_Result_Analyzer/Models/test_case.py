@@ -2,7 +2,10 @@
 test_results = [
     {"id": "TC101", "status": "Pass"},
     {"id": "TC102", "status": "Fail"},
-    {"id": "TC103", "status": "Blocked"}
+    {"id": "TC103", "status": "Blocked"},
+    {"id": "TC104", "status": "Fail"},
+    {"id": "TC105", "status": "Fail"},
+    {"id": "TC106", "status": "Blocked"}
 ]
 
 class TestCase():
@@ -32,4 +35,3 @@ for i in test_results:
     result = i
     call = TestCase(result["id"], result["status"])
     test_cases.append(call)
-    print(str(call))
