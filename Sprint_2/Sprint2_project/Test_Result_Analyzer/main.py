@@ -7,4 +7,3 @@ if __name__ == "__main__":
     summary = analyzer.generate_summary()
     report_writer = ReportWriter(summary)
     report_writer.save_report()
-    print(str(summary))
