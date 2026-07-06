@@ -103,3 +103,5 @@ DELETE /users/42   → Delete user 42
 
 > Every business rule = a test case.
 > Missing requirements = gaps = future bugs.
+
+
