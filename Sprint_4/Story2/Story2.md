@@ -94,3 +94,67 @@ def browser():
 ---
 
 ## Parametrization
+
+Run the **same test with multiple inputs** — no code duplication.
+
+```python
+import pytest
+
+@pytest.mark.parametrize("username, password, expected", [
+    ("alice", "correct_pass", 200),
+    ("alice", "wrong_pass",   401),
+    ("",      "any_pass",     400),
+])
+def test_login(username, password, expected):
+    response = requests.post(
+        "https://api.example.com/login",
+        json={"username": username, "password": password}
+    )
+    assert response.status_code == expected
+```
+
+- Each tuple = one test case
+- Pytest runs the function once per tuple
+- Shows up as separate test results in the report
+
+---
+
+## Markers
+
+Markers **tag** tests so you can run specific groups.
+
+### Built-in Markers
+| Marker | Purpose |
+|---|---|
+| `@pytest.mark.skip` | Always skip this test |
+| `@pytest.mark.skipif(condition, reason="...")` | Skip if condition is true |
+| `@pytest.mark.xfail` | Expected to fail — won't count as a failure |
+| `@pytest.mark.parametrize` | Run test with multiple inputs |
+
+### Custom Markers
+```python
+# In conftest.py or pytest.ini
+# pytest.ini:
+# [pytest]
+# markers =
+#     smoke: smoke tests
+#     regression: regression tests
+#     auth: authentication tests
+
+@pytest.mark.smoke
+def test_login_valid():
+    ...
+
+@pytest.mark.regression
+def test_login_invalid():
+    ...
+```
+
+### Running by Marker
+```bash
+pytest -m smoke           # run only smoke tests
+pytest -m "not regression" # run everything except regression
+pytest -m "smoke and auth"  # run tests with both markers
+```
+
+---
