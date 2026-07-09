@@ -158,3 +158,94 @@ pytest -m "smoke and auth"  # run tests with both markers
 ```
 
 ---
+
+## Test Discovery
+
+Pytest automatically finds tests using these rules:
+
+| Rule | Example |
+|---|---|
+| Files named `test_*.py` or `*_test.py` | `test_login.py`, `auth_test.py` |
+| Functions starting with `test_` | `def test_valid_login():` |
+| Classes starting with `Test` | `class TestLogin:` |
+| Methods starting with `test_` inside Test classes | `def test_invalid_password(self):` |
+
+### conftest.py
+- Special file Pytest recognises automatically
+- Place shared fixtures here — available to all tests in the same folder and subfolders
+- No import needed
+
+```
+qa_framework/
+├── conftest.py          ← shared fixtures (base_url, headers, driver)
+├── tests/
+│   ├── test_login.py
+│   └── test_users.py
+```
+
+---
+
+## Running Test Suites
+
+```bash
+pytest                          # run all tests in current directory
+pytest tests/                   # run all tests in tests/ folder
+pytest tests/test_login.py      # run one specific file
+pytest tests/test_login.py::test_valid_login   # run one specific test
+
+pytest -v                       # verbose — show each test name + result
+pytest -s                       # show print() output during tests
+pytest -v -s                    # both
+
+pytest -m smoke                 # run tests tagged with @pytest.mark.smoke
+pytest -k "login"               # run tests whose name contains "login"
+pytest --tb=short               # shorter traceback on failure
+pytest -x                       # stop after first failure
+pytest --maxfail=3              # stop after 3 failures
+```
+
+### With Allure Reporting
+```bash
+pytest --alluredir=allure-results
+allure serve allure-results
+```
+
+---
+
+## Quick Reference — Typical Project Structure
+
+```
+qa_framework/
+├── conftest.py              ← shared fixtures
+├── pytest.ini               ← markers, settings
+├── requirements.txt
+└── tests/
+    ├── test_auth.py
+    ├── test_users.py
+    └── test_orders.py
+```
+
+### `pytest.ini`
+```ini
+[pytest]
+markers =
+    smoke: smoke test suite
+    regression: regression test suite
+    auth: authentication tests
+```
+
+---
+
+## Summary
+
+| Concept | Purpose |
+|---|---|
+| `test_` prefix | Pytest discovers and runs the function as a test |
+| `assert` | Validates expected vs actual — fails the test if false |
+| Fixtures | Reusable setup/teardown — injected via function parameters |
+| `yield` in fixture | Code before = setup, code after = teardown |
+| `parametrize` | One test function, multiple input sets |
+| Markers | Tag and group tests — run subsets with `-m` |
+| `conftest.py` | Shared fixtures available across all test files |
+| `-v` flag | Verbose output — see every test name and status |
+| `-x` flag | Stop on first failure — useful for debugging |
