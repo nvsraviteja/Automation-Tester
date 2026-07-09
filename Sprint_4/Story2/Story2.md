@@ -47,3 +47,50 @@ assert response.status_code == 200, f"Expected 200, got {response.status_code}"
 ---
 
 ## Fixtures
+
+Fixtures provide **reusable setup** for tests — run before (and optionally after) each test.
+
+```python
+import pytest
+
+@pytest.fixture
+def base_url():
+    return "https://api.example.com"
+
+@pytest.fixture
+def auth_headers():
+    return {"Authorization": "Bearer test_token_123"}
+
+def test_get_user(base_url, auth_headers):
+    response = requests.get(f"{base_url}/users/1", headers=auth_headers)
+    assert response.status_code == 200
+```
+
+### Fixture Scopes
+| Scope | Runs once per… | Use for |
+|---|---|---|
+| `function` (default) | Each test function | Fresh data per test |
+| `class` | Each test class | Shared setup for grouped tests |
+| `module` | Each test file | Module-level setup |
+| `session` | Entire test run | DB connection, browser launch |
+
+```python
+@pytest.fixture(scope="session")
+def db_connection():
+    conn = create_connection()
+    yield conn        # ← code after yield runs as teardown
+    conn.close()
+```
+
+### Yield Fixtures (Setup + Teardown)
+```python
+@pytest.fixture
+def browser():
+    driver = webdriver.Chrome()   # setup
+    yield driver                  # test runs here
+    driver.quit()                 # teardown — always runs
+```
+
+---
+
+## Parametrization
