@@ -7,3 +7,6 @@ driver = webdriver.Chrome()
 driver.get("https://opensource-demo.orangehrmlive.com/")
 
 wait = WebDriverWait(driver, 10)
+driver.maximize_window()
+
+input("enter")
