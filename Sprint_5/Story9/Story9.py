@@ -19,3 +19,5 @@ for r in nor:
         print(r.text)
         print("Row number is: ",nor.index(r)+1)
 
+noc = len(driver.find_elements(By.XPATH, "//table[@class='ui-datepicker-calendar']/tbody/tr[1]/td"))
+nor = len(driver.find_elements(By.XPATH, "//table[@class='ui-datepicker-calendar']/tbody/tr/td[1]"))

@@ -17,9 +17,28 @@ c_date = driver.find_element(By.XPATH, "//*[@id='ui-datepicker-div']/div/div").t
 while True:
     month = driver.find_element(By.XPATH, "//span[@class='ui-datepicker-month']").text
     year = driver.find_element(By.XPATH, "//span[@class='ui-datepicker-year']").text
-    if month == "March" and year == "2024":
+    if month == "February" and year == "2026":
         break
-    elif year < "2026":
+    else:
         driver.find_element(By.XPATH, "//span[@class='ui-icon ui-icon-circle-triangle-w'][1]").click()
+
+noc = len(driver.find_elements(By.XPATH, "//table[@class='ui-datepicker-calendar']/tbody/tr[1]/td"))
+nor = len(driver.find_elements(By.XPATH, "//table[@class='ui-datepicker-calendar']/tbody/tr/td[1]"))
+
+dates = driver.find_elements(By.XPATH, "//table[@class='ui-datepicker-calendar']/tbody/tr/td/a")
+
+for date in dates:
+    if date.text == "15":
+        date.click()
+
+# for r in range (nor):
+#     for c in range (noc):
+#         date = driver.find_element(By.XPATH, "//table[@class='ui-datepicker-calendar']/tbody/tr["+str(r)+"]/td["+str(c)+"]/a")
+#         if date == "15":
+#             date.click()
+
+c_date = driver.find_element(By.XPATH, "//*[@id='ui-datepicker-div']/div/div").text
+
+print (c_date)
 
 input("enter")
