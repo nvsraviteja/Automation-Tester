@@ -5,5 +5,5 @@
 # Story 5 Topic: SQL Joins — Inner, Left, Right, Full Outer, Cross, Self
 # Story 6 Topic: Subqueries — Single-row, Multi-row, IN/ANY/ALL, Correlated, EXISTS/NOT EXISTS
 # Story 7 Topic: SQL Constraints
-
+# Story 8 Topic: Views
 
