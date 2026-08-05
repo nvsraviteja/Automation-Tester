@@ -8,6 +8,3 @@ Story 6: WebElements Cheatsheet
 Story 7: Checkbox | Links (Internal / External / Broken) | Dropdown
 Story 8: Topics: Alerts/Popups | Authentication Popup | Frames/Iframes | Browser Windows
 Story 9: Topic: WebTable (Static & Dynamic)
-
-2
-3
