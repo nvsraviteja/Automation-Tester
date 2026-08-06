@@ -6,4 +6,4 @@
 # Story 6 Topic: Subqueries — Single-row, Multi-row, IN/ANY/ALL, Correlated, EXISTS/NOT EXISTS
 # Story 7 Topic: SQL Constraints
 # Story 8 Topic: Views
-
+# Story 9 Topic: Indexes
